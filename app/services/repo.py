@@ -22,6 +22,10 @@ def get_relevant_files(directory, language):
     
     relevant_files = []
     for root, _, files in os.walk(directory):
+        # Skip any directory that is a test/tests folder
+        parts = root.lower().split(os.sep)
+        if 'test' in parts or 'tests' in parts:
+            continue
         for file in files:
             if any(file.endswith(ext) for ext in extensions):
                 relevant_files.append(os.path.join(root, file))
